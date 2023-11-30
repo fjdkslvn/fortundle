@@ -5,20 +5,18 @@ import * as stringUtil from "../../modules/stringUtil";
 import CellBundle from "./components/Cell/CellBundle";
 
 function GamePage() {
-  const test = "순돌";
+  const test = "안녕";
 
-  const [testWord, setTestWord] = useState([
-    "ㅇ",
-    "ㅏ",
-    "ㄴ",
-    "ㄴ",
-    "ㅕ",
-    "ㅇ",
-  ]);
+  const [testWord, setTestWord] = useState([]);
   const [splitWord, setSplitWord] = useState([]);
   const [submitWordList, setSubmitWordList] = useState([]);
   const [testAbleNum, setTestAbleNum] = useState(6);
   const testWordLen = useRef(6);
+
+  // DidMount와 같은 것
+  useEffect(() => {
+    setTestWord(stringUtil.getConstantVowel(test));
+  }, []);
 
   /**
    * pc에서 키보드 입력을 통한 이벤트 처리
