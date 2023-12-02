@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styles from "./Cell.module.css";
 
 const Cell = ({ value, state }) => {
@@ -6,8 +6,8 @@ const Cell = ({ value, state }) => {
     <div
       className={
         state
-          ? [styles.submitWord, styles[state]].join(" ")
-          : [styles.splitWord, value && styles.inputCell].join(" ")
+          ? [styles.cell, styles.submitWord, styles[state]].join(" ")
+          : [styles.cell, styles.splitWord, value && styles.inputCell].join(" ")
       }
     >
       {value}

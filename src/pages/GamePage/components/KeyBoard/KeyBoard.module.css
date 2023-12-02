@@ -1,7 +1,9 @@
-.cellBundle {
+.keyboardArea {
+  margin-top: 20px;
   width: 100%;
 }
-.cellList {
+
+.keyboardList {
   display: flex;
   justify-content: center;
 }

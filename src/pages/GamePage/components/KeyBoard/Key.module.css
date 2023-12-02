@@ -1,0 +1,52 @@
+.key {
+  max-width: 40px;
+  width: 100%;
+  flex: 1;
+  height: 58px;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #e2e8f1;
+  border: 0;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 0px;
+  cursor: pointer;
+}
+.key.function {
+  min-width: 30px;
+  max-width: 64px;
+}
+.key:hover {
+  background-color: #cbd5e1;
+}
+.key:active {
+  background-color: #94a3b8;
+}
+.key.success {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+.key.success:hover {
+  background-color: #16a34a;
+  color: #ffffff;
+}
+.key.success:active {
+  background-color: #15803d;
+  color: #ffffff;
+}
+.key.half {
+  background-color: #eab308;
+  color: #ffffff;
+}
+.key.half:hover {
+  background-color: #ca8a04;
+  color: #ffffff;
+}
+.key.half:active {
+  background-color: #a16207;
+  color: #ffffff;
+}
+.key.fail {
+  background-color: #94a3b8 !important;
+  color: #ffffff;
+}

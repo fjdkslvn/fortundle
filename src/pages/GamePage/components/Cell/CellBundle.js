@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Cell from "./Cell";
 import styles from "./CellBundle.module.css";
 
@@ -18,24 +18,28 @@ function CellBundle({
   };
 
   return (
-    <div>
+    <div className={styles.cellBundle}>
       {submitWordList.map((submitWord, idx) => (
-        <div className={styles.cellList}>
+        <div className={styles.cellList} key={idx}>
           {submitWord.map((obj, idx) => (
-            <Cell state={obj.state} value={obj.value} />
+            <Cell state={obj.state} value={obj.value} key={idx} />
           ))}
         </div>
       ))}
       <div className={styles.cellList}>
-        {submitWordList.length < 6 &&
+        {submitWordList.length < testWordLen &&
           [...Array(parseInt(testWordLen))].map((obj, idx) =>
-            splitWord.length > idx ? <Cell value={splitWord[idx]} /> : <Cell />
+            splitWord.length > idx ? (
+              <Cell value={splitWord[idx]} key={idx} />
+            ) : (
+              <Cell key={idx} />
+            )
           )}
       </div>
       {[...Array(parseInt(testAbleNum - 1))].map((obj, idx) => (
-        <div className={styles.cellList}>
+        <div className={styles.cellList} key={idx}>
           {[...Array(parseInt(testWordLen))].map((obj, idx) => (
-            <Cell />
+            <Cell key={idx} />
           ))}
         </div>
       ))}
