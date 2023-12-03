@@ -27,7 +27,7 @@ function CellBundle({
         </div>
       ))}
       <div className={styles.cellList}>
-        {submitWordList.length < testWordLen &&
+        {splitWord.length > 0 &&
           [...Array(parseInt(testWordLen))].map((obj, idx) =>
             splitWord.length > idx ? (
               <Cell value={splitWord[idx]} key={idx} />
@@ -36,13 +36,15 @@ function CellBundle({
             )
           )}
       </div>
-      {[...Array(parseInt(testAbleNum - 1))].map((obj, idx) => (
-        <div className={styles.cellList} key={idx}>
-          {[...Array(parseInt(testWordLen))].map((obj, idx) => (
-            <Cell key={idx} />
-          ))}
-        </div>
-      ))}
+      {[...Array(parseInt(testAbleNum - (splitWord.length > 0 ? 1 : 0)))].map(
+        (obj, idx) => (
+          <div className={styles.cellList} key={idx}>
+            {[...Array(parseInt(testWordLen))].map((obj, idx) => (
+              <Cell key={idx} />
+            ))}
+          </div>
+        )
+      )}
     </div>
   );
 }

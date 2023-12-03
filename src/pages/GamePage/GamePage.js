@@ -5,23 +5,51 @@ import CellBundle from "./components/Cell/CellBundle";
 import KeyBoard from "./components/KeyBoard/KeyBoard";
 
 function GamePage() {
-  const test = "순돌";
+  const test = "도시락";
 
   const [testWord, setTestWord] = useState([]);
   const [splitWord, setSplitWord] = useState([]);
   const [submitWordList, setSubmitWordList] = useState([]);
   const [keyCheck, setKeyCheck] = useState({});
   const [testAbleNum, setTestAbleNum] = useState(6);
+  const [finishState, setFinishState] = useState(false);
 
   useEffect(() => {
     setTestWord(stringUtil.getConstantVowel(test));
+
+    const getSubmitWordList = JSON.parse(
+      localStorage.getItem("submitWordList")
+    );
+    if (getSubmitWordList) {
+      setSubmitWordList(getSubmitWordList);
+      setTestAbleNum(testAbleNum - getSubmitWordList.length);
+    }
   }, []);
+
+  useEffect(() => {
+    if (submitWordList.length > 0) {
+      const submitWord = submitWordList[submitWordList.length - 1];
+      const successList = submitWord.filter((word) => word.state === "success");
+      if (successList.length === testWord.length) {
+        alert("정답입니다!");
+        setFinishState(true);
+      } else if (testAbleNum === 0) {
+        alert(`실패하였습니다. 정답은 ${test}입니다.`);
+        setFinishState(true);
+      }
+    }
+  }, [testAbleNum]);
 
   /**
    * pc에서 키보드 입력을 통한 이벤트 처리
    * @param {*} e 키보드 이벤트
    */
   const writeWord = (keyCode) => {
+    // 이미 정답을 맞춘 경우
+    if (finishState) {
+      return false;
+    }
+
     // 뒤로가기 기능
     if (keyCode === "Backspace") {
       const nextSplitWord = [...splitWord];
@@ -60,7 +88,6 @@ function GamePage() {
   const checkWord = () => {
     let submitWord = [];
     let check = { ...keyCheck };
-    let perfectCnt = 0;
 
     for (var i = 0; i < testWord.length; i++) {
       if (testWord[i] === splitWord[i]) {
@@ -69,7 +96,6 @@ function GamePage() {
           state: "success",
         });
         check[splitWord[i]] = "success";
-        perfectCnt++;
       } else if (testWord.includes(splitWord[i])) {
         submitWord.push({
           value: splitWord[i],
@@ -88,14 +114,13 @@ function GamePage() {
             : check[splitWord[i]];
       }
     }
-    setSubmitWordList([...submitWordList, submitWord]);
+
+    const newSubmitWordList = [...submitWordList, submitWord];
+    localStorage.setItem("submitWordList", JSON.stringify(newSubmitWordList));
+    setSubmitWordList(newSubmitWordList);
     setKeyCheck({ ...check });
     setSplitWord([]);
     setTestAbleNum(testAbleNum - 1);
-
-    if (perfectCnt === testWord.length) {
-      alert("정답입니다!");
-    }
   };
 
   return (
