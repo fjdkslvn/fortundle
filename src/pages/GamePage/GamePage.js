@@ -50,7 +50,7 @@ function GamePage() {
         alert("정답입니다!");
         setFinishState(true);
       } else if (testAbleNum === 0) {
-        alert(`실패하였습니다. 정답은 ${test}입니다.`);
+        alert(`실패하였습니다. 정답은 ${answer}입니다.`);
         setFinishState(true);
       }
     }
